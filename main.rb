@@ -1,3 +1,4 @@
+$test_suite_enabled = ("test" == ARGV.shift)
 require_relative 'customer_invitation.rb'
 
 # Filepath, latitude, longitude, range as parameters in order
@@ -7,7 +8,6 @@ OFFICE_LATITUDE = 53.3381985
 OFFICE_LONGITUDE = -6.2592576
 INVITATION_RANGE = 100
 
-$test_suite_enabled = false
 
 customer_invite = CustomerInvitation.new(FILEPATH, OFFICE_LATITUDE, OFFICE_LONGITUDE, INVITATION_RANGE)
 
