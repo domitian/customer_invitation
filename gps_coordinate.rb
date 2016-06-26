@@ -1,6 +1,5 @@
 require_relative 'haversine_distance.rb'
 
-require 'test/unit'
 
 class InvalidLatLongRangeException < Exception
 end
@@ -38,20 +37,23 @@ class GpsCoordinate
 
 end
 
-class TestGpsCoordinate < Test::Unit::TestCase
-    
-    def test_get_distance_from_source
-        sour = GpsCoordinate.new(53.3381985, -6.2592576)
-        dest = GpsCoordinate.new(52.986375, -6.043701)
-        assert_equal dest.get_distance_from_source(sour).to_i, 41
-    end
+if $test_suite_enabled
+    require 'test/unit'
+    class TestGpsCoordinate < Test::Unit::TestCase
+        
+        def test_get_distance_from_source
+            sour = GpsCoordinate.new(53.3381985, -6.2592576)
+            dest = GpsCoordinate.new(52.986375, -6.043701)
+            assert_equal dest.get_distance_from_source(sour).to_i, 41
+        end
 
-    def test_initialize
-        assert_raise(InvalidLatLongRangeException) {
-            GpsCoordinate.new(-100,10)
-        }
-        assert_raise(InvalidLatLongRangeException) {
-            GpsCoordinate.new(-10,200)
-        }
+        def test_initialize
+            assert_raise(InvalidLatLongRangeException) {
+                GpsCoordinate.new(-100,10)
+            }
+            assert_raise(InvalidLatLongRangeException) {
+                GpsCoordinate.new(-10,200)
+            }
+        end
     end
 end

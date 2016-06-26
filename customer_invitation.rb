@@ -3,7 +3,6 @@ require_relative 'txt_to_read.rb'
 require_relative 'txt_to_json.rb'
 require_relative 'validate_json_data.rb'
 
-require 'test/unit'
 
 class CustomerInvitation
 
@@ -43,11 +42,14 @@ class CustomerInvitation
 end
 
 #CustomerInvitation.new.invite_customers_within_range
-class TestCustomerInvitation < Test::Unit::TestCase
-    
-    def test_invite_customers_within_range
-        default_invite = CustomerInvitation.new('test_data/customer.txt', 53.3381985, -6.2592576, 100)
-        assert_equal default_invite.invite_customers_within_range.count, 16
-    end
+if $test_suite_enabled
+    require 'test/unit'
+    class TestCustomerInvitation < Test::Unit::TestCase
+        
+        def test_invite_customers_within_range
+            default_invite = CustomerInvitation.new('test_data/customer.txt', 53.3381985, -6.2592576, 100)
+            assert_equal default_invite.invite_customers_within_range.count, 16
+        end
 
+    end
 end

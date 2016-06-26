@@ -1,4 +1,3 @@
-require 'test/unit'
 module TxtToRead
 
     # Creating custom exceptions
@@ -20,22 +19,25 @@ module TxtToRead
 
 end
 
-class TestTxtToRead < Test::Unit::TestCase
-    
-    def test_read_file
-        # nil file name
-        assert_raise(TxtToRead::FileNotFoundException) {
-            TxtToRead.read_file(nil)
-        }
-        # dummy file name
-        assert_raise(TxtToRead::FileNotFoundException) {
-            TxtToRead.read_file('dummy')
-        }
-        assert_raise(TxtToRead::FileAccessException) {
-            TxtToRead.read_file('test_data/noperm')
-        }
-        assert_equal TxtToRead.read_file('test_data/empty_file'), ''
-        assert_equal TxtToRead.read_file('test_data/empty_file'), File.read('test_data/empty_file')
-    end
+if $test_suite_enabled
+    require 'test/unit'
+    class TestTxtToRead < Test::Unit::TestCase
+        
+        def test_read_file
+            # nil file name
+            assert_raise(TxtToRead::FileNotFoundException) {
+                TxtToRead.read_file(nil)
+            }
+            # dummy file name
+            assert_raise(TxtToRead::FileNotFoundException) {
+                TxtToRead.read_file('dummy')
+            }
+            assert_raise(TxtToRead::FileAccessException) {
+                TxtToRead.read_file('test_data/noperm')
+            }
+            assert_equal TxtToRead.read_file('test_data/empty_file'), ''
+            assert_equal TxtToRead.read_file('test_data/empty_file'), File.read('test_data/empty_file')
+        end
 
+    end
 end

@@ -1,4 +1,3 @@
-require 'test/unit'
 require 'json'
 
 class String
@@ -28,19 +27,22 @@ module ValidateJsonData
     
 end
 
-class TestValidateJsonData < Test::Unit::TestCase
-    
-    def test_validate
-
-        invalid_id = [JSON.parse("{\"latitude\": \"52.986375\", \"user_id\": \"\", \"name\": \"Christina McArdle\", \"longitude\": \"-6.043701\"}")]
-        assert_raise(ValidateJsonData::InvalidDataTypeException) {
-            ValidateJsonData.validate(invalid_id)
-        }
-
-        invalid_lat = [JSON.parse("{\"latitude\": \"\", \"user_id\": 12, \"name\": \"Christina McArdle\", \"longitude\": \"-6.043701\"}")]
-        assert_raise(ValidateJsonData::InvalidDataTypeException) {
-            ValidateJsonData.validate(invalid_lat)
-        }
+if $test_suite_enabled
+    require 'test/unit'
+    class TestValidateJsonData < Test::Unit::TestCase
         
+        def test_validate
+
+            invalid_id = [JSON.parse("{\"latitude\": \"52.986375\", \"user_id\": \"\", \"name\": \"Christina McArdle\", \"longitude\": \"-6.043701\"}")]
+            assert_raise(ValidateJsonData::InvalidDataTypeException) {
+                ValidateJsonData.validate(invalid_id)
+            }
+
+            invalid_lat = [JSON.parse("{\"latitude\": \"\", \"user_id\": 12, \"name\": \"Christina McArdle\", \"longitude\": \"-6.043701\"}")]
+            assert_raise(ValidateJsonData::InvalidDataTypeException) {
+                ValidateJsonData.validate(invalid_lat)
+            }
+            
+        end
     end
 end

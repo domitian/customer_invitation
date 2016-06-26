@@ -1,6 +1,5 @@
 require 'json'
 
-require 'test/unit'
 module TxtToJson
 
     class InvalidJsonFormatException < Exception
@@ -22,13 +21,16 @@ module TxtToJson
 end
 
 #puts TxtToJson.convert_to_json(File.read('test_data/invalid_json'))
-class TestTxtToJson < Test::Unit::TestCase
+if $test_suite_enabled
+    require 'test/unit'
+    class TestTxtToJson < Test::Unit::TestCase
 
-    def test_convert_to_json
-        # invalid json format
-        assert_raise(TxtToJson::InvalidJsonFormatException) {
-            TxtToJson.convert_to_json File.read('test_data/invalid_json')
-        }
+        def test_convert_to_json
+            # invalid json format
+            assert_raise(TxtToJson::InvalidJsonFormatException) {
+                TxtToJson.convert_to_json File.read('test_data/invalid_json')
+            }
+        end
+
     end
-
 end
