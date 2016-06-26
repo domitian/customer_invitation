@@ -23,4 +23,3 @@ module HaversineDistance
     end
 
 end
-

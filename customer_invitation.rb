@@ -2,6 +2,8 @@ require_relative 'customer.rb'
 require_relative 'txt_to_read.rb'
 require_relative 'txt_to_json.rb'
 
+require 'test/unit'
+
 class CustomerInvitation
 
     def initialize(filepath='customer.txt', source_latitude=53.3381985, source_longitude=-6.2592576, customer_range=100)
@@ -18,9 +20,7 @@ class CustomerInvitation
         customer_objects = create_user_objects(customer_list)
         customers_within_range = get_customers_in_range(customer_objects)
         customers_within_range = customers_within_range.sort
-        print_customers(customers_within_range)
     end
-
 
     private
 
@@ -38,11 +38,14 @@ class CustomerInvitation
         end
     end
 
-    def print_customers customer_objs
-        customer_objs.each do |customer|
-            puts "name: #{customer.name} user_id: #{customer.user_id}"
-        end
-    end
 end
 
 #CustomerInvitation.new.invite_customers_within_range
+class TestCustomerInvitation < Test::Unit::TestCase
+    
+    def test_invite_customers_within_range
+        default_invite = CustomerInvitation.new('test_data/customer.txt', 53.3381985, -6.2592576, 100)
+        assert_equal default_invite.invite_customers_within_range.count, 16
+    end
+
+end
