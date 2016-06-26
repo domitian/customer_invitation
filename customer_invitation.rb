@@ -1,6 +1,7 @@
 require_relative 'customer.rb'
 require_relative 'txt_to_read.rb'
 require_relative 'txt_to_json.rb'
+require_relative 'validate_json_data.rb'
 
 require 'test/unit'
 
@@ -16,6 +17,7 @@ class CustomerInvitation
     def invite_customers_within_range
         input_txt = TxtToRead.read_file(@filepath)
         customer_list = TxtToJson.convert_to_json(input_txt)
+        ValidateJsonData.validate(customer_list)
         
         customer_objects = create_user_objects(customer_list)
         customers_within_range = get_customers_in_range(customer_objects)
